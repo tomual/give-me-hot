@@ -1,0 +1,26 @@
+body  {
+    font-size: 12px;
+}
+
+.material-icons {
+    position: absolute;
+    left: 10px;
+    color: rgb(117, 117, 117);
+}
+
+.collection.with-header .collection-item {	
+    color: rgba(0, 0, 0, 0.87);
+	padding-left: 45px;
+    position: relative;
+}
+
+.collection.with-header .collection-header {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 14px;
+    font-weight: 500;
+    padding-left: 45px;
+}
+
+.collection a.collection-item:not(.active):hover {
+    background-color: rgba(0,0,0,0.1);
+}

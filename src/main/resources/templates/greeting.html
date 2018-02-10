@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css}" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link th:href="@{/css/style.css}" href="/css/style.css" rel="stylesheet" type="text/css" />
+
+
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col s4">
+                <div class="collection with-header">
+                    <div class="collection-header">Reddit</div>
+                    <th:block th:each="redditPost : ${redditPosts}">
+                        <a class="collection-item" th:href="${redditPost.getUrl()}" th:inline="text"><i class="material-icons" th:text="${redditPost.getIcon()}">...</i>[[${redditPost.getTitle()}]]</a>
+                    </th:block>
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="collection with-header">
+                    <div class="collection-header">StackOverflow</div>
+                    <th:block th:each="stackPost : ${stackPosts}">
+                        <a class="collection-item" th:href="${stackPost.getUrl()}" th:inline="text"><i class="material-icons" th:text="${stackPost.getIcon()}">...</i>[[${stackPost.getTitle()}]]</a>
+                    </th:block>
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="collection with-header">
+                    <div class="collection-header">Slashdot</div>
+                    <th:block th:each="slashPost : ${slashPosts}">
+                        <a class="collection-item" th:href="${slashPost.getUrl()}" th:inline="text"><i class="material-icons" th:text="${slashPost.getIcon()}">...</i>[[${slashPost.getTitle()}]]</a>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
