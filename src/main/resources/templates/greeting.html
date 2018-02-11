@@ -12,6 +12,27 @@
 <body>
     <div class="container">
         <div class="row">
+            <div class="col s6">
+                <div class="collection with-header">
+                    <div class="collection-header">First Panel</div>
+                    <a class="collection-item" th:href="what" th:inline="text"><i class="material-icons">link</i>Panel item</a>
+                </div>
+            </div>
+            <div class="col s6">
+                <div class="collection with-header twitch-streams">
+                    <div class="collection-header">Twitch</div>
+                    <th:block th:each="twitchStream : ${twitchStreams}">
+                        <a class="collection-item" th:href="${twitchStream.getUrl()}" th:inline="text">
+                            <img class="circle" th:src="${twitchStream.getIcon()}" />
+                            <span class="title" th:text="${twitchStream.getTitle()}">...</span>
+                            <span class="description" th:inline="text">[[${twitchStream.getGame()}]] &middot; [[${twitchStream.getViews()}]] viewers</span>
+                        </a>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col s4">
                 <div class="collection with-header">
                     <div class="collection-header">Reddit</div>
@@ -29,6 +50,13 @@
                 </div>
             </div>
             <div class="col s4">
+                <div class="collection with-header">
+                    <div class="collection-header">The Gamer's Post</div>
+                    <th:block th:each="gamerPost : ${gamerPosts}">
+                        <a class="collection-item" th:href="${gamerPost.getUrl()}" th:inline="text"><i class="material-icons" th:text="${gamerPost.getIcon()}">...</i>[[${gamerPost.getTitle()}]]</a>
+                    </th:block>
+                </div>
+
                 <div class="collection with-header">
                     <div class="collection-header">Slashdot</div>
                     <th:block th:each="slashPost : ${slashPosts}">

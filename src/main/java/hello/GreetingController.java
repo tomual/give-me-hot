@@ -25,11 +25,15 @@ public class GreetingController {
         List<RedditPost> redditPosts = service.getReddit();
         List<StackPost> stackPosts = service.getStack();
         List<SlashPost> slashPosts = service.getSlash();
+        List<GamerPost> gamerPosts = service.getGamer();
+        List<TwitchStream> twitchStreams = service.getTwitch();
 
         model.addAttribute("name", name);
         model.addAttribute("redditPosts", redditPosts);
         model.addAttribute("stackPosts", stackPosts);
         model.addAttribute("slashPosts", slashPosts);
+        model.addAttribute("gamerPosts", gamerPosts);
+        model.addAttribute("twitchStreams", twitchStreams);
         return "greeting";
 
 

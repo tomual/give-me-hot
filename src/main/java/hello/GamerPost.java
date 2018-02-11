@@ -1,14 +1,14 @@
 package hello;
 
-public class StackPost {
+public class GamerPost {
     private String title;
     private String url;
     private String icon;
 
-    public StackPost(String title, String url) {
+    public GamerPost(String title, String url) {
         this.title = title;
-        this.url = "https://stackoverflow.com" + url;
-        this.icon = "code";
+        this.url = url;
+        this.icon = "videogame_asset";
     }
 
     public String getTitle() {

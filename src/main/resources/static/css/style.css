@@ -24,3 +24,20 @@ body  {
 .collection a.collection-item:not(.active):hover {
     background-color: rgba(0,0,0,0.1);
 }
+
+.circle {
+    border-radius: 50%;
+    height: 35px;
+    position: absolute;
+    left: 10px;
+    top: 13px;
+}
+
+span.description {
+    display: block;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.collection.with-header.twitch-streams .collection-item {
+    padding-left: 55px;
+}
