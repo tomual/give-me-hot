@@ -44,7 +44,7 @@ public class Service {
         Optional<String> stream_type = Optional.ofNullable(null);
 
         List<Stream> streams = streamEndpoint.getAll(limit, offset, language, Optional.ofNullable(new Game()), channelIds, stream_type);
-        for (int i = 0; i < streams.size() && i < 5; i++) {
+        for (int i = 0; i < streams.size() && i < 3; i++) {
             String game = streams.get(i).getChannel().getGame();
             int views = streams.get(i).getViewers();
             String channel = streams.get(i).getChannel().getName();
@@ -57,7 +57,6 @@ public class Service {
     }
 
     public List<GamerPost> getGamer() {
-
         List<GamerPost> gamerPosts = new ArrayList<GamerPost>();
         String html = "https://thegamerspost.com/";
         try {
@@ -67,16 +66,50 @@ public class Service {
                 GamerPost gamerPost = new GamerPost(links.get(i).text(), links.get(i).attr("href"));
                 gamerPosts.add(gamerPost);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return gamerPosts;
+    }
+
+    public DepotPost getDepot() {
+        DepotPost depotPost = new DepotPost();
+        String html = "https://www.webdesignerdepot.com/category/news/";
+        try {
+            Document doc = Jsoup.connect(html).get();
+            Elements links = doc.select(".article-hp-content");
+            for (int i = 0; i < links.size(); i++) {
+
+                String title = links.get(i).select("a.anim-link").text();
+                if(title.contains("Popular Design News of the Week")) {
+                    title = title.replace("Popular Design News of the Week: ", "");
+                    title = title.replaceAll(", 2018", "");
+                    title = title.replaceAll("^.* - ", "");
+                    depotPost = new DepotPost(title, links.get(i).select("a.anim-link").attr("href"), links.get(i).select("img").attr("src"));
+                    break;
+                }
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return depotPost;
+    }
 
-        return gamerPosts;
+    public CodropsPost getCodrops() {
+        CodropsPost codropsPost = new CodropsPost();
+        String html = "https://tympanus.net/codrops/collective/";
+        try {
+            Document doc = Jsoup.connect(html).get();
+            Elements links = doc.select(".ct-latest-thumb a");
+            codropsPost = new CodropsPost(links.get(0).attr("href"), links.get(0).select("img").attr("src"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return codropsPost;
     }
 
     public List<SlashPost> getSlash() {
-
         List<SlashPost> slashPosts = new ArrayList<SlashPost>();
         String html = "https://slashdot.org/";
         try {
@@ -86,37 +119,30 @@ public class Service {
                 SlashPost slashPost = new SlashPost(links.get(i).text(), links.get(i).attr("href"));
                 slashPosts.add(slashPost);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return slashPosts;
     }
 
     public List<StackPost> getStack() {
-
         List<StackPost> stackPosts = new ArrayList<StackPost>();
         String html = "https://stackoverflow.com/?tab=week";
         try {
             Document doc = Jsoup.connect(html).get();
             Elements links = doc.select("div#question-mini-list h3 > a");
             System.out.println("headers");
-            for (int i = 0; i < links.size() && i < 10; i++) {
+            for (int i = 0; i < links.size() && i < 13; i++) {
                 StackPost stackPost = new StackPost(links.get(i).text(), links.get(i).attr("href"));
                 stackPosts.add(stackPost);
             }
-            System.out.println();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return stackPosts;
     }
 
     public List<RedditPost> getReddit() {
-
         List<RedditPost> redditPosts = new ArrayList<RedditPost>();
         Request request = new Request.Builder()
                 .url("https://www.reddit.com/r/all/hot/.json?count=20")
@@ -129,7 +155,7 @@ public class Service {
             JSONObject data = postsJson.getJSONObject("data");
             JSONArray children = data.getJSONArray("children");
 
-            for (int i = 0; i < children.length() && i < 10; i++) {
+            for (int i = 0; i < children.length() && i < 13; i++) {
                 String title = children.getJSONObject(i).getJSONObject("data").getString("title");
                 String url = children.getJSONObject(i).getJSONObject("data").getString("url");
                 RedditPost redditPost = new RedditPost(title, url);

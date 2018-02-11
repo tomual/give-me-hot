@@ -7,7 +7,7 @@ public class RedditPost {
 
     public RedditPost(String title, String url) {
         this.title = title;
-        this.url = url;
+        this.url = setUrl(url);
         this.icon = setIcon(url);
     }
 
@@ -38,6 +38,19 @@ public class RedditPost {
         }
 
         return "link";
+    }
+
+    private String setUrl(String url) {
+        if(url.contains("imgur") || url.contains("reddit") || url.contains("redd.it")) {
+            return  url;
+        }
+        if(url.contains("youtube")) {
+            return url.replace("youtube", "hooktube");
+        }
+        if(url.contains("youtu.be/")) {
+            return url.replace("youtu.be/", "hooktube.com/watch?v=");
+        }
+        return "http://outline.com/" + url;
     }
 
 }

@@ -41,3 +41,32 @@ span.description {
 .collection.with-header.twitch-streams .collection-item {
     padding-left: 55px;
 }
+
+span.title {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    height: 1.5rem;
+    text-overflow: ellipsis;
+}
+
+.row:first-child .col.s3 .collection-item {
+	height: 195px;
+}
+
+.card .card-image {
+    position: relative;
+    height: 238px;
+    overflow: hidden;
+}
+
+.card .card-image img {
+    height: 100%;
+    object-fit: none;
+    object-position: center;
+}
+
+.row {
+	margin-bottom: 0;
+}

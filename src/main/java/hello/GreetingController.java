@@ -22,6 +22,8 @@ public class GreetingController {
     @RequestMapping("/greeting")
     public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
 
+        DepotPost depotPost = service.getDepot();
+        CodropsPost codropsPost = service.getCodrops();
         List<RedditPost> redditPosts = service.getReddit();
         List<StackPost> stackPosts = service.getStack();
         List<SlashPost> slashPosts = service.getSlash();
@@ -29,6 +31,8 @@ public class GreetingController {
         List<TwitchStream> twitchStreams = service.getTwitch();
 
         model.addAttribute("name", name);
+        model.addAttribute("codropsPost", codropsPost);
+        model.addAttribute("depotPost", depotPost);
         model.addAttribute("redditPosts", redditPosts);
         model.addAttribute("stackPosts", stackPosts);
         model.addAttribute("slashPosts", slashPosts);
