@@ -15,10 +15,13 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Properties;
 
 @org.springframework.stereotype.Service
 public class Service {
@@ -26,14 +29,19 @@ public class Service {
     private OkHttpClient client = new OkHttpClient();
     Response response;
 
+    private String twitchclientid;
+    private String twitchclientsecret;
+    private String twitchtoken;
+
     public List<TwitchStream> getTwitch() {
+        loadConfig();
         List<TwitchStream> twitchStreams = new ArrayList<TwitchStream>();
         TwitchClient twitchClient = TwitchClientBuilder.init()
-                .withClientId("")
-                .withClientSecret("")
+                .withClientId(twitchclientid)
+                .withClientSecret(twitchclientsecret)
                 .withAutoSaveConfiguration(true)
                 .withConfigurationDirectory(new File("config"))
-                .withCredential("") // Get your token at: https://twitchapps.com/tmi/
+                .withCredential(twitchtoken) // Get your token at: https://twitchapps.com/tmi/
                 .connect();
 
         StreamEndpoint streamEndpoint = twitchClient.getStreamEndpoint();
@@ -165,5 +173,30 @@ public class Service {
             e.printStackTrace();
         }
         return redditPosts;
+    }
+
+
+    private void loadConfig() {
+        Properties prop = new Properties();
+        InputStream input = null;
+
+        try {
+            input = new FileInputStream("config.properties");
+            prop.load(input);
+            twitchclientid = prop.getProperty("twitchclientid");
+            twitchclientsecret = prop.getProperty("twitchclientsecret");
+            twitchtoken = prop.getProperty("twitchtoken");
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
