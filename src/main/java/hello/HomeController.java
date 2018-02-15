@@ -14,13 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class GreetingController {
+public class HomeController {
 
     @Autowired
     private Service service;
 
-    @RequestMapping("/greeting")
-    public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
+    @RequestMapping("/")
+    public String home(Model model) {
 
         DepotPost depotPost = service.getDepot();
         CodropsPost codropsPost = service.getCodrops();
@@ -30,7 +30,6 @@ public class GreetingController {
         List<GamerPost> gamerPosts = service.getGamer();
         List<TwitchStream> twitchStreams = service.getTwitch();
 
-        model.addAttribute("name", name);
         model.addAttribute("codropsPost", codropsPost);
         model.addAttribute("depotPost", depotPost);
         model.addAttribute("redditPosts", redditPosts);
@@ -38,8 +37,6 @@ public class GreetingController {
         model.addAttribute("slashPosts", slashPosts);
         model.addAttribute("gamerPosts", gamerPosts);
         model.addAttribute("twitchStreams", twitchStreams);
-        return "greeting";
-
-
+        return "home";
     }
 }
