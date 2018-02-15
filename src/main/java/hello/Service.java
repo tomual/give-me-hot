@@ -177,26 +177,8 @@ public class Service {
 
 
     private void loadConfig() {
-        Properties prop = new Properties();
-        InputStream input = null;
-
-        try {
-            input = new FileInputStream("config.properties");
-            prop.load(input);
-            twitchclientid = prop.getProperty("twitchclientid");
-            twitchclientsecret = prop.getProperty("twitchclientsecret");
-            twitchtoken = prop.getProperty("twitchtoken");
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        twitchclientid = System.getenv("TWITCH_CLIENT_ID");
+        twitchclientsecret = System.getenv("TWITCH_CLIENT_SECRET");
+        twitchtoken = System.getenv("TWITCH_TOKEN");
     }
 }
