@@ -1,7 +1,7 @@
 # give-me-hot
 A dashboard of trending articles from various sites related to website development/programming and video games. Made with Java using Spring Boot.
 
-![Screenshot](https://lh3.googleusercontent.com/My6Vy3aXMu7tOnWrSuR6d0D84wgtPZRteBc01al858mTMztGGvnTe5s--VwufwlybGtrbw9bYNomdGtWHvjuWqRoA1ZF4IOzFzLPEvsq=w1745-h897-rw-no)
+![Screenshot](http://tomual.com/images/blog/ss%20(2018-02-16%20at%2008.25.03).png)
 
 [View app](https://give-me-hot.herokuapp.com/) - Hosted on Heroku; will take 20 seconds to boot
 
